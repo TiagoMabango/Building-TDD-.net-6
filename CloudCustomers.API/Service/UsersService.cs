@@ -8,8 +8,15 @@ public interface IUsersService
 }
 public class UsersService : IUsersService
 {
-    public Task<List<User>> GetAllUsers()
+    private readonly HttpClient _httpClient;  
+    
+    public UsersService(HttpClient httpClient)
     {
-        throw new NotImplementedException();
+        _httpClient = httpClient;
+    }
+    public async Task<List<User>> GetAllUsers()
+    {
+        var usersResponse = await _httpClient.GetAsync("https://example.com");
+        return new List<User> { };
     }
 }
