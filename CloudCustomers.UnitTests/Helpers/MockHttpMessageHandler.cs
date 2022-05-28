@@ -36,6 +36,8 @@ namespace CloudCustomers.UnitTests.Helpers
             return handlerMock;
         }
 
+        
+
         internal static Mock<HttpMessageHandler> SetupReturn404()
         {
             var mockResponse = new HttpResponseMessage(System.Net.HttpStatusCode.NotFound)
