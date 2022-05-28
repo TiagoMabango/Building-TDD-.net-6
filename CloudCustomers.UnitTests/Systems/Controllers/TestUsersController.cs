@@ -1,5 +1,6 @@
 using CloudCustomers.API.Controllers;
 using CloudCustomers.API.Models;
+using CloudCustomers.UnitTests.Fixtures;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -7,45 +8,30 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CloudCustomers.UnitTests.Systems
+namespace CloudCustomers.UnitTests.Systems.Controllers
 {
     public class TestUsersController
     {
         [Fact]
-        public async Task  Get_OnSuccess_ReturnStatusCode200()
+        public async Task Get_OnSuccess_ReturnStatusCode200()
         {
             //Arrange
             var mockUsersService = new Mock<IUsersService>();
 
             mockUsersService
                 .Setup(service => service.GetAllUsers())
-                .ReturnsAsync(new List<User>()
-                {
-                    new()
-                    {
-                        Id = 1,
-                        Name = "Tiago Mabango",
-                        Email = "tiagomabango@gmail.com",
-                        Address = new Address
-                        {
-                            City = "Luanda",
-                            ZipCode = "29097",
-                            Street = "São Pedro Da barra"
-                        }
-
-                    }
-                });
+                .ReturnsAsync(UsersFixture.GetTestUsers);
 
             var sut = new UsersController(mockUsersService.Object);
             //Act
-            var result = (OkObjectResult) await sut.Get();
+            var result = (OkObjectResult)await sut.Get();
             //Assert
             result.StatusCode.Should().Be(200);
         }
 
         [Fact]
 
-        public  async Task Get_OnSuccess_InvokeUsersServiceExactlyOnce()
+        public async Task Get_OnSuccess_InvokeUsersServiceExactlyOnce()
         {
 
             //Arrange
@@ -79,22 +65,7 @@ namespace CloudCustomers.UnitTests.Systems
 
             mockUsersService
                 .Setup(service => service.GetAllUsers())
-                .ReturnsAsync(new List<User>()
-                {
-                    new()
-                    {
-                        Id = 1,
-                        Name = "Tiago Mabango",
-                        Email = "tiagomabango@gmail.com",
-                        Address = new Address 
-                        { 
-                            City = "Luanda",
-                            ZipCode = "29097",
-                            Street = "São Pedro Da barra"
-                        }
-
-                    }
-                });
+                .ReturnsAsync(UsersFixture.GetTestUsers);
 
             var sut = new UsersController(mockUsersService.Object);
 
