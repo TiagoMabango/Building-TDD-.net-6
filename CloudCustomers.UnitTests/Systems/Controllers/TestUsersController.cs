@@ -33,9 +33,7 @@ namespace CloudCustomers.UnitTests.Systems.Controllers
 
         public async Task Get_OnSuccess_InvokeUsersServiceExactlyOnce()
         {
-
             //Arrange
-
             var mockUsersService = new Mock<IUsersService>();
 
             mockUsersService
@@ -54,7 +52,6 @@ namespace CloudCustomers.UnitTests.Systems.Controllers
                 Times.Once());
 
         }
-
 
         [Fact]
         public async Task Get_OnSuccess_ReturnsListOfUsers()
@@ -97,14 +94,8 @@ namespace CloudCustomers.UnitTests.Systems.Controllers
 
             var result = await sut.Get();
 
-            //Assert
 
-            result.Should().BeOfType<NotFoundResult>();
-            var objectResult = (NotFoundResult)result;
-            objectResult.StatusCode.Should().Be(404);
         }
-
-
 
     }
 }
